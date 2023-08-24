@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.*
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -110,6 +111,8 @@ fun AnotatedText(){
  *      - blurRadius: độ rộng của bóng (càng lớn càng mờ)
  * - brush: brush trong TextStyle vẽ màu cho chữ
  *      - Brush.linearGradient: add list màu gradient, không giới hạn số màu.
+ * - modifier: chỉnh nhiều thông số đến kích thước.
+ * - textAlign: Chỉnh phân bố và bố cục chữ.
  */
 @OptIn(ExperimentalTextApi::class)
 @Composable
@@ -127,9 +130,13 @@ fun TextFillToResource(){
             brush = Brush.linearGradient(
                 colors = gradientColor
             ),
-        )
+        ),
+        modifier = Modifier.fillMaxWidth(),
+        textAlign = TextAlign.Center
     )
 }
+
+
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable

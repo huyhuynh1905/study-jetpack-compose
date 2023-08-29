@@ -4,13 +4,22 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.*
+import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.huyhuynh.studycompose.ui.theme.StudyComposeTheme
@@ -37,14 +46,29 @@ fun ButtonScreens(){
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(10.dp)) {
+        //simple
         SimpleButton()
         OutlinedButton(onClick = {}) {
             Text(text = "OutLine")
         }
+        FilledTonalButton(onClick = { /*TODO*/ }) {//từ thư viện material3
+            Text(text = "FilledTonalButton")
+        }
+        //elvevated
         ElevationButton()
+        ElevatedButton(onClick = { /*TODO*/ }) { //phải thêm thư viên material3
+            Text(text = "Elvated Button")
+        }
+        //text
         TextButton(onClick = { /*TODO*/ }) {
             Text("Text Button")
         }
+        //modifier
+        ClickComposable()
+        Spacer(modifier = Modifier.height(10.dp))
+        CombinedClickComposable()
+        Spacer(modifier = Modifier.height(10.dp))
+        PointerInput()
     }
 }
 
@@ -72,7 +96,54 @@ fun ElevationButton(){
     }
 }
 
+@Composable
+fun ClickComposable(){
+    Text(
+        text = "Click Acction",
+        modifier = Modifier.clickable {
+            Log.d("Click","Click able Text")
+        }
+    )
+}
 
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun CombinedClickComposable(){
+    Text(
+        text = "CombinedClickComposable",
+        modifier = Modifier.combinedClickable(
+            onClick = {
+                Log.d("CombinedClickComposable","onClick CombinedClickComposable")
+            },
+            onLongClick = {
+                Log.d("CombinedClickComposable","onLongClick CombinedClickComposable")
+            },
+            onClickLabel = "Click"
+        )
+    )
+
+}
+
+
+@Composable
+fun PointerInput(){
+    Text(
+        text = "Pointer",
+        modifier = Modifier.pointerInput(Unit){
+            detectTapGestures(
+                onDoubleTap = {
+                    Log.d("PointerInput","onDoubleTap PointerInput")
+                },
+                onTap = {
+                    Log.d("PointerInput","onTap PointerInput")
+                },
+                onPress = {
+                    Log.d("PointerInput","onPress PointerInput")
+                }
+            )
+        }
+    )
+}
 
 
 
